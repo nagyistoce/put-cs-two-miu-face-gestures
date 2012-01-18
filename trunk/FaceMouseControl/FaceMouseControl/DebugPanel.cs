@@ -36,6 +36,15 @@ namespace FaceController
                     toDraw.Draw(eyeRect, new Bgr(Color.DarkSeaGreen), 2);
                 }
             }
+            if (data.Mouth.rect != null)
+            {
+                if (data.Mouth.rect.Height != 0 && data.Mouth.rect.Width != 0)
+                {
+                    Rectangle mouthRect = data.Mouth.rect;
+                    mouthRect.Offset(data.MouthROI.X, data.MouthROI.Y);
+                    toDraw.Draw(mouthRect, new Bgr(Color.Black), 2);
+                }
+            }
             frame.Image = toDraw;
             DrawDiff(data);
         }

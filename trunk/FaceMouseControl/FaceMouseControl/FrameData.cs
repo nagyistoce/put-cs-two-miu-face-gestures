@@ -21,6 +21,10 @@ namespace FaceController
 
         public System.Drawing.Rectangle EyesROI { get; set; }
 
+        public MCvAvgComp Mouth { get; set; }
+
+        public System.Drawing.Rectangle MouthROI { get; set; }
+
         public Boolean Empty { get; set; }
 
         public bool Rotated { get; set; }

@@ -59,5 +59,31 @@ namespace FaceController
 
             return eyesDetected;
         }
+
+        public MCvAvgComp DetectMouth(FrameData data)
+        {
+            MCvAvgComp face = data.Face;
+            Int32 yCoordStartSearchMouth = face.rect.Top + (face.rect.Height * 7 / 11);
+            Point startingPointSearchMouth = new Point(face.rect.X, yCoordStartSearchMouth);
+            Size searchMouthAreaSize = new Size(face.rect.Width, (face.rect.Height * 4 / 11));
+            Rectangle possibleROI_mouth = new Rectangle(startingPointSearchMouth, searchMouthAreaSize);
+
+            data.GrayFrame.ROI = possibleROI_mouth;
+            data.MouthROI = possibleROI_mouth;
+            MCvAvgComp[] mouthDetected = _mouth.Detect(data.GrayFrame, 1.15, 3, Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.DO_ROUGH_SEARCH, new Size(30, 20));
+            data.GrayFrame.ROI = Rectangle.Empty;
+
+            if (mouthDetected.Length > 0)
+            {
+                if (mouthDetected[0].rect.Height != 0 && mouthDetected[0].rect.Width != 0)
+                {
+                    var mouthRect = mouthDetected[0].rect;
+                    mouthRect.Offset(possibleROI_mouth.X, possibleROI_mouth.Y);
+                    data.GrayFrame.ROI = mouthRect;
+                    return mouthDetected[0];
+                }
+            }
+            return new MCvAvgComp();
+        }
     }
 }
