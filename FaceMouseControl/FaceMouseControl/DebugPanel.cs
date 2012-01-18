@@ -86,6 +86,7 @@ namespace FaceController
             
             INPUT tmpInput;
             List<INPUT> ins = new List<INPUT>();
+            string text = "";
             if (e.Alt)
             {
                 tmpInput = new INPUT();
@@ -93,6 +94,7 @@ namespace FaceController
                 tmpInput.ki.dwFlags = 0;
                 tmpInput.ki.wScan = (ushort)(WindowsAPI.VK_ALT & 0xff);
                 ins.Add(tmpInput);
+                text += "ALT +";
             }
 
             if (e.Shift)
@@ -102,6 +104,7 @@ namespace FaceController
                 tmpInput.ki.dwFlags = 0;
                 tmpInput.ki.wScan = (ushort)(WindowsAPI.VK_LSHIFT & 0xff);
                 ins.Add(tmpInput);
+                text += "SHIFT +";
             }
             if (e.Control)
             {
@@ -110,25 +113,34 @@ namespace FaceController
                 tmpInput.ki.dwFlags = 0;
                 tmpInput.ki.wScan = (ushort)(WindowsAPI.VK_LCONTROL & 0xff);
                 ins.Add(tmpInput);
+                text += "CTRL +";
             }
-
+            KeysConverter a= new KeysConverter();
+            text += a.ConvertToInvariantString(e.KeyCode);
             ushort scanCode = (ushort)WindowsAPI.MapVirtualKey((ushort)e.KeyValue, 0);
+            if (e.KeyCode == Keys.Menu || e.KeyCode == Keys.ShiftKey || e.KeyCode == Keys.ControlKey) return;
             tmpInput = new INPUT();
             tmpInput.type = WindowsAPI.INPUT_KEYBOARD;
             tmpInput.ki.dwFlags = 0;
             tmpInput.ki.wScan = (ushort)(scanCode & 0xff);
             ins.Add(tmpInput);
             this.inputs = ins.ToArray();
+            textBox1.Text = text;
         }
 
         private void doAction_Click(object sender, EventArgs e)
         {
+            
+        }
+
+        private void textBox2_MouseClick(object sender, MouseEventArgs e)
+        {
             if (inputs.Length > 0)
             {
                 uint intReturn = WindowsAPI.SendInput((uint)inputs.Length, inputs, System.Runtime.InteropServices.Marshal.SizeOf(inputs[0]));
-                if (intReturn != 1)
+                if (intReturn != inputs.Length)
                 {
-                    throw new Exception("Could not send keys: ");
+                    throw new Exception("Could not send all keys. Send only " + intReturn + " from " + inputs.Length);
                 }
             }
         }
