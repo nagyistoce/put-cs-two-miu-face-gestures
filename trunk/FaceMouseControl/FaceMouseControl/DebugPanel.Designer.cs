@@ -107,6 +107,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 20);
             this.textBox2.TabIndex = 10;
+            this.textBox2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.textBox2_MouseClick);
             // 
             // DebugPanel
             // 
