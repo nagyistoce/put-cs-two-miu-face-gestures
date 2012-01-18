@@ -79,5 +79,58 @@ namespace FaceController
             Emgu.CV.Image<Gray, byte> eye = diff.GetSubRect(rect);
             helperBox2.Image = eye;
         }
+
+        INPUT[] inputs;
+        private void textBox1_KeyUp(object sender, KeyEventArgs e)
+        {
+            
+            INPUT tmpInput;
+            List<INPUT> ins = new List<INPUT>();
+            if (e.Alt)
+            {
+                tmpInput = new INPUT();
+                tmpInput.type = WindowsAPI.INPUT_KEYBOARD;
+                tmpInput.ki.dwFlags = 0;
+                tmpInput.ki.wScan = (ushort)(WindowsAPI.VK_ALT & 0xff);
+                ins.Add(tmpInput);
+            }
+
+            if (e.Shift)
+            {
+                tmpInput = new INPUT();
+                tmpInput.type = WindowsAPI.INPUT_KEYBOARD;
+                tmpInput.ki.dwFlags = 0;
+                tmpInput.ki.wScan = (ushort)(WindowsAPI.VK_LSHIFT & 0xff);
+                ins.Add(tmpInput);
+            }
+            if (e.Control)
+            {
+                tmpInput = new INPUT();
+                tmpInput.type = WindowsAPI.INPUT_KEYBOARD;
+                tmpInput.ki.dwFlags = 0;
+                tmpInput.ki.wScan = (ushort)(WindowsAPI.VK_LCONTROL & 0xff);
+                ins.Add(tmpInput);
+            }
+
+            ushort scanCode = (ushort)WindowsAPI.MapVirtualKey((ushort)e.KeyValue, 0);
+            tmpInput = new INPUT();
+            tmpInput.type = WindowsAPI.INPUT_KEYBOARD;
+            tmpInput.ki.dwFlags = 0;
+            tmpInput.ki.wScan = (ushort)(scanCode & 0xff);
+            ins.Add(tmpInput);
+            this.inputs = ins.ToArray();
+        }
+
+        private void doAction_Click(object sender, EventArgs e)
+        {
+            if (inputs.Length > 0)
+            {
+                uint intReturn = WindowsAPI.SendInput((uint)inputs.Length, inputs, System.Runtime.InteropServices.Marshal.SizeOf(inputs[0]));
+                if (intReturn != 1)
+                {
+                    throw new Exception("Could not send keys: ");
+                }
+            }
+        }
     }
 }
