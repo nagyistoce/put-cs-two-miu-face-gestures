@@ -226,6 +226,10 @@ namespace FaceController
         public const uint MOUSEEVENTF_WHEEL = 0x0800;
         public const uint MOUSEEVENTF_VIRTUALDESK = 0x4000;
         public const uint MOUSEEVENTF_ABSOLUTE = 0x8000;
+
+        public const uint VK_ALT = 0x0012;
+        public const uint VK_LSHIFT = 0x00a0;
+        public const uint VK_LCONTROL = 0x00a2;
     }
 
     [StructLayout(LayoutKind.Sequential)]
