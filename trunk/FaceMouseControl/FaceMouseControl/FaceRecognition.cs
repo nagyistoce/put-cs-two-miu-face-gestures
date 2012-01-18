@@ -67,6 +67,8 @@ namespace FaceController
                 {
                     MCvAvgComp face = detectors.DetectFace(data);
                     data.Face = face;
+                    MCvAvgComp mouth = detectors.DetectMouth(data);
+                    data.Mouth = mouth;
                     MCvAvgComp[] eyes = detectors.DetectEyes(data);
                     data.Eyes = eyes;
                     data.EyesCount = eyes.Length;
