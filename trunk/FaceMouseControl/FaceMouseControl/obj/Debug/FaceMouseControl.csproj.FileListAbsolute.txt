@@ -23,3 +23,15 @@ D:\CodeRepos\MIU\FaceMouseControl\FaceMouseControl\obj\Debug\ResGen.read.1.tlog
 D:\CodeRepos\MIU\FaceMouseControl\FaceMouseControl\obj\Debug\ResGen.write.1.tlog
 D:\CodeRepos\MIU\FaceMouseControl\FaceMouseControl\obj\Debug\FaceController.Properties.Resources.resources
 D:\CodeRepos\MIU\FaceMouseControl\FaceMouseControl\obj\Debug\FaceController.DebugPanel.resources
+D:\PUT\TWO\MIU\FaceMouseControl\FaceMouseControl\FaceMouseControl\obj\Debug\FaceMouseControl.exe
+D:\PUT\TWO\MIU\FaceMouseControl\FaceMouseControl\FaceMouseControl\obj\Debug\FaceMouseControl.pdb
+D:\PUT\TWO\MIU\FaceMouseControl\FaceMouseControl\FaceMouseControl\bin\Debug\FaceMouseControl.exe
+D:\PUT\TWO\MIU\FaceMouseControl\FaceMouseControl\FaceMouseControl\bin\Debug\FaceMouseControl.pdb
+D:\PUT\TWO\MIU\FaceMouseControl\FaceMouseControl\FaceMouseControl\bin\Debug\Emgu.CV.dll
+D:\PUT\TWO\MIU\FaceMouseControl\FaceMouseControl\FaceMouseControl\bin\Debug\Emgu.CV.UI.dll
+D:\PUT\TWO\MIU\FaceMouseControl\FaceMouseControl\FaceMouseControl\bin\Debug\Emgu.Util.dll
+D:\PUT\TWO\MIU\FaceMouseControl\FaceMouseControl\FaceMouseControl\obj\Debug\ResolveAssemblyReference.cache
+D:\PUT\TWO\MIU\FaceMouseControl\FaceMouseControl\FaceMouseControl\obj\Debug\FaceController.DebugPanel.resources
+D:\PUT\TWO\MIU\FaceMouseControl\FaceMouseControl\FaceMouseControl\obj\Debug\FaceController.Properties.Resources.resources
+D:\PUT\TWO\MIU\FaceMouseControl\FaceMouseControl\FaceMouseControl\obj\Debug\ResGen.read.1.tlog
+D:\PUT\TWO\MIU\FaceMouseControl\FaceMouseControl\FaceMouseControl\obj\Debug\ResGen.write.1.tlog
