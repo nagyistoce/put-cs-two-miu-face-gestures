@@ -54,10 +54,30 @@ namespace FaceController
 
         private void DrawHelper1(FrameData data)
         {
+            if (data.EyesCount < 1)
+            {
+                return;
+            }
+            var diff = lastData.GrayFrame.AbsDiff(data.GrayFrame);
+            Rectangle rect = data.Eyes[0].rect;
+            rect.X += data.EyesROI.X;
+            rect.Y += data.EyesROI.Y;
+            Emgu.CV.Image<Gray, byte> eye = diff.GetSubRect(rect);
+            helperBox1.Image = eye;
         }
 
         private void DrawHelper2(FrameData data)
         {
+            if (data.EyesCount < 2)
+            {
+                return; 
+            }
+            var diff = lastData.GrayFrame.AbsDiff(data.GrayFrame);
+            Rectangle rect = data.Eyes[1].rect;
+            rect.X += data.EyesROI.X;
+            rect.Y += data.EyesROI.Y;
+            Emgu.CV.Image<Gray, byte> eye = diff.GetSubRect(rect);
+            helperBox2.Image = eye;
         }
     }
 }

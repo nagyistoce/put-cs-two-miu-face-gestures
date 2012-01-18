@@ -54,7 +54,7 @@ namespace FaceController
 
             data.GrayFrame.ROI = possibleROI_eyes;
             data.EyesROI = possibleROI_eyes;
-            MCvAvgComp[] eyesDetected = _singleEyes.Detect(data.GrayFrame, 1.15, 3, Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.DO_ROUGH_SEARCH, new Size(20, 20));
+            MCvAvgComp[] eyesDetected = _singleEyes.Detect(data.GrayFrame, 1.5, 3, Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.DO_ROUGH_SEARCH, new Size(20, 20));
             data.GrayFrame.ROI = Rectangle.Empty;
 
             return eyesDetected;
