@@ -1,0 +1,9 @@
+c:\users\jaqb\documents\visual studio 2010\Projects\Mock\Mock\bin\Debug\Mock.exe
+c:\users\jaqb\documents\visual studio 2010\Projects\Mock\Mock\bin\Debug\Mock.pdb
+c:\users\jaqb\documents\visual studio 2010\Projects\Mock\Mock\obj\x86\Debug\ResolveAssemblyReference.cache
+c:\users\jaqb\documents\visual studio 2010\Projects\Mock\Mock\obj\x86\Debug\Mock.Form1.resources
+c:\users\jaqb\documents\visual studio 2010\Projects\Mock\Mock\obj\x86\Debug\Mock.Properties.Resources.resources
+c:\users\jaqb\documents\visual studio 2010\Projects\Mock\Mock\obj\x86\Debug\GenerateResource.read.1.tlog
+c:\users\jaqb\documents\visual studio 2010\Projects\Mock\Mock\obj\x86\Debug\GenerateResource.write.1.tlog
+c:\users\jaqb\documents\visual studio 2010\Projects\Mock\Mock\obj\x86\Debug\Mock.exe
+c:\users\jaqb\documents\visual studio 2010\Projects\Mock\Mock\obj\x86\Debug\Mock.pdb
