@@ -116,7 +116,7 @@ namespace FaceController
             double difference = Math.Atan(tg) * (180.0 / Math.PI);
             if (Math.Abs(difference) > ROTATION_TRESHOLD)
             {
-                this.rotateAngle += difference;
+                //this.rotateAngle += difference;
                 return true;
             }
             return false;

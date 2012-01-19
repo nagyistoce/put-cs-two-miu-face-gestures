@@ -63,16 +63,17 @@ namespace FaceController
 
         private void DrawHelper1(FrameData data)
         {
-            if (data.EyesCount < 1)
+            Rectangle rect = data.Mouth.rect;
+            if (rect.Height != 0 && rect.Width != 0)
             {
-                return;
+                rect.X += data.MouthROI.X;
+                rect.Y += data.MouthROI.Y;
+                Emgu.CV.Image<Gray, byte> mouth = data.GrayFrame.GetSubRect(rect);
+                mouth._ThresholdToZero(new Gray(100));
+                mouth._SmoothGaussian(3);
+                mouth._Erode(4);
+                helperBox1.Image = mouth;
             }
-            var diff = lastData.GrayFrame.AbsDiff(data.GrayFrame);
-            Rectangle rect = data.Eyes[0].rect;
-            rect.X += data.EyesROI.X;
-            rect.Y += data.EyesROI.Y;
-            Emgu.CV.Image<Gray, byte> eye = diff.GetSubRect(rect);
-            helperBox1.Image = eye;
         }
 
         private void DrawHelper2(FrameData data)
