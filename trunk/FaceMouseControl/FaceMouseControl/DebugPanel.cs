@@ -47,6 +47,56 @@ namespace FaceController
             }
             frame.Image = toDraw;
             DrawDiff(data);
+            DrawEyesDifference(data);
+            lastData = data;
+        }
+
+        private void DrawEyesDifference(FrameData data)
+        {
+            if (lastData != null)
+            {
+                var diff = lastData.GrayFrame.AbsDiff(data.GrayFrame);
+
+                Emgu.CV.Image<Gray, byte> mouthArea = null;
+                if (data.Mouth.rect.Size != new Size(0,0))
+                {
+                    var mouthRect = data.Mouth.rect;
+                    mouthRect.X += data.MouthROI.X;
+                    mouthRect.Y += data.MouthROI.Y;
+                    mouthArea = diff.GetSubRect(mouthRect);
+                    helperBox3.Image = mouthArea;
+                }
+
+                if (data.EyesCount < 1)
+                {
+                    return;
+                }
+
+                Rectangle rect = data.Eyes[0].rect;
+                rect.X += data.EyesROI.X;
+                rect.Y += data.EyesROI.Y;
+                Emgu.CV.Image<Gray, byte> eye = diff.GetSubRect(rect);
+                helperBox1.Image = eye;
+                if (IsBlink(eye, mouthArea))
+                {
+                    MessageBox.Show("Blink");
+                }
+
+                if (data.EyesCount < 2)
+                {
+                    return;
+                }
+                diff = lastData.GrayFrame.AbsDiff(data.GrayFrame);
+                rect = data.Eyes[1].rect;
+                rect.X += data.EyesROI.X;
+                rect.Y += data.EyesROI.Y;
+                eye = diff.GetSubRect(rect);
+                helperBox2.Image = eye;
+                if (IsBlink(eye, mouthArea))
+                {
+                    MessageBox.Show("Blink");
+                }
+            }
         }
 
         private void DrawDiff(FrameData data)
@@ -58,7 +108,7 @@ namespace FaceController
                 //var diffSum = diff.GetSum();
                 //var diffVal = (diffSum.Blue + diffSum.Red + diffSum.Green) / (diff.Height * diff.Width);
             }
-            lastData = data;
+            
         }
 
         private void DrawHelper1(FrameData data)
@@ -75,19 +125,27 @@ namespace FaceController
                 helperBox1.Image = mouth;
             }
         }
+        private bool IsBlink(Emgu.CV.Image<Gray, byte> eye, Emgu.CV.Image<Gray, byte> mouth)
+        {
+            if (mouth == null) 
+            { 
+                return false; 
+            }
+            Gray eyeAvg;
+            MCvScalar eyeSc;
+            eye.AvgSdv(out eyeAvg, out eyeSc);
+
+            Gray mouthAvg;
+            MCvScalar mouthSc;
+            mouth.AvgSdv(out mouthAvg, out mouthSc);
+            label1.Text = "Mouth: " + mouthAvg.Intensity.ToString();
+            label2.Text = "Eyes:" + eyeAvg.Intensity.ToString();
+            return eyeAvg.Intensity > 20.0 && mouthAvg.Intensity < 10.0;
+        }
 
         private void DrawHelper2(FrameData data)
         {
-            if (data.EyesCount < 2)
-            {
-                return; 
-            }
-            var diff = lastData.GrayFrame.AbsDiff(data.GrayFrame);
-            Rectangle rect = data.Eyes[1].rect;
-            rect.X += data.EyesROI.X;
-            rect.Y += data.EyesROI.Y;
-            Emgu.CV.Image<Gray, byte> eye = diff.GetSubRect(rect);
-            helperBox2.Image = eye;
+            
         }
 
         INPUT[] inputs;
@@ -145,7 +203,7 @@ namespace FaceController
 
         private void textBox2_MouseClick(object sender, MouseEventArgs e)
         {
-            if (inputs.Length > 0)
+            if (inputs!= null && inputs.Length > 0)
             {
                 uint intReturn = WindowsAPI.SendInput((uint)inputs.Length, inputs, System.Runtime.InteropServices.Marshal.SizeOf(inputs[0]));
                 if (intReturn != inputs.Length)
