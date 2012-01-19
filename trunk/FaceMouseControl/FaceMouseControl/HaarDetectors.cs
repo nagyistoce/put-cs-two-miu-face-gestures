@@ -11,6 +11,9 @@ namespace FaceController
     public class NoFaceDetectedException : Exception
     {
     }
+    public class NoEyesDetectedException : Exception
+    {
+    }
 
     class HaarDetectors
     {
@@ -53,11 +56,27 @@ namespace FaceController
             Rectangle possibleROI_eyes = new Rectangle(startingPointSearchEyes, searchEyesAreaSize);
 
             data.GrayFrame.ROI = possibleROI_eyes;
-            data.EyesROI = possibleROI_eyes;
-            MCvAvgComp[] eyesDetected = _singleEyes.Detect(data.GrayFrame, 1.5, 3, Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.DO_ROUGH_SEARCH, new Size(20, 20));
+            MCvAvgComp[] eyesDetected = _eyes.Detect(data.GrayFrame, 1.15, 3, Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.DO_ROUGH_SEARCH, new Size(20, 20));
             data.GrayFrame.ROI = Rectangle.Empty;
 
-            return eyesDetected;
+            if (eyesDetected.Length != 0)
+            {
+                foreach (MCvAvgComp eye in eyesDetected)
+                {
+                    Rectangle eyeRect = eye.rect;
+
+                    eyeRect.Offset(possibleROI_eyes.X, possibleROI_eyes.Y);
+                    data.GrayFrame.ROI = eyeRect;
+
+                    data.GrayFrame.ROI = possibleROI_eyes;
+                    data.EyesROI = possibleROI_eyes;
+                    MCvAvgComp[] singleEyesDetected = _singleEyes.Detect(data.GrayFrame, 1.5, 3, Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.DO_ROUGH_SEARCH, new Size(20, 20));
+                    data.GrayFrame.ROI = Rectangle.Empty;
+
+                    return singleEyesDetected;
+                }
+            }
+            throw new NoEyesDetectedException();
         }
 
         public MCvAvgComp DetectMouth(FrameData data)
