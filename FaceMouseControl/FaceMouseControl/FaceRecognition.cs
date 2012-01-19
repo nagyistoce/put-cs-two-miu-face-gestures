@@ -31,6 +31,8 @@ namespace FaceController
 
         private const double ROTATION_TRESHOLD = 1.0f;
 
+        private const double ROTATION_UPPER_TRESHOLD = 12.0f;
+
         public FrameReceiverFunc EventListeners { get; set; }
 
         public FaceRecognition(int ms)
@@ -105,6 +107,9 @@ namespace FaceController
                 catch (NoEyesDetectedException)
                 {
                 }
+                catch (NoMouthDetectedException)
+                {
+                }
             }            
             if (!processed)
             {
@@ -121,7 +126,7 @@ namespace FaceController
             double tg = -(double)((rect1.Y + rect1.Height / 2) - (rect2.Y + rect2.Height / 2)) /
                 (double)((rect1.X + rect1.Width / 2) - (rect2.X + rect2.Width / 2));
             double difference = Math.Atan(tg) * (180.0 / Math.PI);
-            if (Math.Abs(difference) > ROTATION_TRESHOLD)
+            if (Math.Abs(difference) > ROTATION_TRESHOLD && Math.Abs(difference) < ROTATION_UPPER_TRESHOLD)
             {
                 this.rotateAngle += difference;
                 return true;
