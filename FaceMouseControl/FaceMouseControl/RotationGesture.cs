@@ -9,20 +9,23 @@ namespace FaceController
     {
         private const int TRESHOLD = 20;
 
-        public RotationGesture(FaceRecognition recognizer)
+        private GestureGatherer gatherer;
+
+        public RotationGesture(FaceRecognition recognizer, GestureGatherer gatherer)
         {
             recognizer.EventListeners += new FrameReceiverFunc(Compute);
+            this.gatherer = gatherer;
         }
 
         public void Compute(FrameData data)
         {
             if (data.Rotation < -TRESHOLD)
             {
-                Console.WriteLine("LEFT rotation");
+                gatherer.PushGesture(GestureGatherer.GestureType.HEAD_ROTATION_LEFT, data.Epoch);
             }
             if (data.Rotation > TRESHOLD)
             {
-                Console.WriteLine("RIGHT rotation");
+                gatherer.PushGesture(GestureGatherer.GestureType.HEAD_ROTATION_RIGHT, data.Epoch);
             }
         }
     }

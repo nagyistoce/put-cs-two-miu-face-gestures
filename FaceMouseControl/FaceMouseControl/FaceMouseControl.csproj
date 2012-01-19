@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GestureGatherer.cs" />
     <Compile Include="RotationGesture.cs" />
     <Compile Include="DebugPanel.cs">
       <SubType>Form</SubType>

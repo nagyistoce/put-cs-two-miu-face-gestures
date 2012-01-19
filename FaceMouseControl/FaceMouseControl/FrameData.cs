@@ -30,5 +30,7 @@ namespace FaceController
         public bool Rotated { get; set; }
 
         public double Rotation { get; set; }
+
+        public long Epoch { get; set; }
     }
 }
