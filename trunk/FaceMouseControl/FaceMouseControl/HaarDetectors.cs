@@ -29,7 +29,7 @@ namespace FaceController
 
         public MCvAvgComp DetectFace(FrameData data)
         {
-            MCvAvgComp[] facesDetected = _faces.Detect(data.GrayFrame, 1.1, 1, Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.FIND_BIGGEST_OBJECT, new Size(20, 20));
+            MCvAvgComp[] facesDetected = _faces.Detect(data.GrayFrame, 1.05, 1, Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.FIND_BIGGEST_OBJECT, new Size(20, 20));
             if (facesDetected.Length == 1)
             {
                 MCvAvgComp face = facesDetected[0];

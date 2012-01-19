@@ -13,6 +13,8 @@ namespace FaceController
 
     public class FaceRecognition
     {
+        private static long currentEpoch = 0;
+
         private static FrameData EMPTY = new FrameData() { Empty = true };
 
         private Capture _capture;
@@ -45,7 +47,8 @@ namespace FaceController
             }
             this.detectors = new HaarDetectors();
 
-            RotationGesture rotationGesture = new RotationGesture(this);
+            GestureGatherer gestureProcessor = new GestureGatherer();
+            RotationGesture rotationGesture = new RotationGesture(this, gestureProcessor);
         }
 
         public void Run()
@@ -63,6 +66,7 @@ namespace FaceController
             Boolean processed = false;
             if (data != null)
             {
+                data.Epoch = currentEpoch++;
                 try
                 {
                     MCvAvgComp face = detectors.DetectFace(data);
@@ -116,7 +120,7 @@ namespace FaceController
             double difference = Math.Atan(tg) * (180.0 / Math.PI);
             if (Math.Abs(difference) > ROTATION_TRESHOLD)
             {
-                //this.rotateAngle += difference;
+                this.rotateAngle += difference;
                 return true;
             }
             return false;

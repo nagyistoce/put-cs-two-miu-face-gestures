@@ -33,7 +33,7 @@ namespace FaceController
                 {
                     Rectangle eyeRect = eye.rect;
                     eyeRect.Offset(data.EyesROI.X, data.EyesROI.Y);
-                    toDraw.Draw(eyeRect, new Bgr(Color.DarkSeaGreen), 2);
+                    toDraw.Draw(eyeRect, new Bgr(Color.White), 2);
                 }
             }
             if (data.Mouth.rect != null)
@@ -42,7 +42,7 @@ namespace FaceController
                 {
                     Rectangle mouthRect = data.Mouth.rect;
                     mouthRect.Offset(data.MouthROI.X, data.MouthROI.Y);
-                    toDraw.Draw(mouthRect, new Bgr(Color.Black), 2);
+                    toDraw.Draw(mouthRect, new Bgr(Color.White), 2);
                 }
             }
             frame.Image = toDraw;
@@ -72,6 +72,13 @@ namespace FaceController
                 mouth._ThresholdToZero(new Gray(100));
                 mouth._SmoothGaussian(3);
                 mouth._Erode(4);
+                Gray avg = new Gray();
+                MCvScalar sdv = new MCvScalar();
+                mouth.AvgSdv(out avg, out sdv);
+                if (avg.Intensity < 150)
+                {
+                    Console.WriteLine("otwarte");
+                }
                 helperBox1.Image = mouth;
             }
         }
