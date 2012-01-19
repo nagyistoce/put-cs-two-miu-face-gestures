@@ -29,9 +29,8 @@ namespace FaceController
             {
                 //send an action
                 Console.WriteLine(type.ToString());
+                lastGestureTime[type] = epoch;
             }
-
-            lastGestureTime[type] = epoch;
         }
     }
 }

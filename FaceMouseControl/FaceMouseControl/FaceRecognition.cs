@@ -49,6 +49,7 @@ namespace FaceController
 
             GestureGatherer gestureProcessor = new GestureGatherer();
             RotationGesture rotationGesture = new RotationGesture(this, gestureProcessor);
+            MouthOpeningGesture mouthGesture = new MouthOpeningGesture(this, gestureProcessor);
         }
 
         public void Run()

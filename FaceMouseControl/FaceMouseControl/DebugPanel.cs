@@ -72,13 +72,6 @@ namespace FaceController
                 mouth._ThresholdToZero(new Gray(100));
                 mouth._SmoothGaussian(3);
                 mouth._Erode(4);
-                Gray avg = new Gray();
-                MCvScalar sdv = new MCvScalar();
-                mouth.AvgSdv(out avg, out sdv);
-                if (avg.Intensity < 150)
-                {
-                    Console.WriteLine("otwarte");
-                }
                 helperBox1.Image = mouth;
             }
         }
