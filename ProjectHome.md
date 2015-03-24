@@ -1,0 +1,1 @@
+Academic project, which approach is to create simple face recognition platform, that could be used as a PC controller.
